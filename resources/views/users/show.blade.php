@@ -76,7 +76,6 @@
     </div>
   </x-slot>
   <x-bladewind::notification />
-
   <div class="text-center">
     <img src="{{ asset(Storage::url($user->photo)) }}" class="rounded-full w-32 mb-4 mx-auto" alt="Avatar" />
     <h5 class="text-xl font-medium leading-tight mb-2">{{$user->name}}</h5>

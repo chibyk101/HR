@@ -8,6 +8,7 @@ use App\Models\Branch;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Subsidiary;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -27,7 +28,10 @@ class DatabaseSeeder extends Seeder
             ->for(Subsidiary::factory()->create())->create()))
         ->create();
     }
+    foreach(User::all() as $user){
+      $user->departments()->attach(rand(1,6));
+    }
     $this->call(UserDatabaseSeeder::class);
-    $this->call(SubsidiarySeeder::class);
+    // $this->call(SubsidiarySeeder::class);
   }
 }
