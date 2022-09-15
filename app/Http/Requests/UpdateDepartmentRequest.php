@@ -25,7 +25,7 @@ class UpdateDepartmentRequest extends FormRequest
     public function rules()
     {
       return [
-        'name' => ['required', 'string', 'max:255', Rule::unique('subsidiaries')->ignoreModel($this->route('department')) ],
+        'name' => ['required', 'string', 'max:255', Rule::unique('departments')->ignoreModel($this->route('department')) ],
         'subsidiary_id' => 'required|exists:subsidiaries'
 
       ];

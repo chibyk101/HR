@@ -17,7 +17,7 @@ class BranchFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->city
+            'name' =>$this->faker->city
         ];
     }
 }

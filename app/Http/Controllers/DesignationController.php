@@ -15,7 +15,7 @@ class DesignationController extends Controller
      */
     public function index()
     {
-        //
+        return view('designations.index');
     }
 
     /**
@@ -25,7 +25,7 @@ class DesignationController extends Controller
      */
     public function create()
     {
-        //
+        return view('designations.create');
     }
 
     /**
@@ -36,18 +36,9 @@ class DesignationController extends Controller
      */
     public function store(StoreDesignationRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Designation  $designation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Designation $designation)
-    {
-        //
+      $designation = new Designation($request->validated());
+      $designation->save();
+      return  back()->with('success','designation created');
     }
 
     /**
@@ -58,7 +49,7 @@ class DesignationController extends Controller
      */
     public function edit(Designation $designation)
     {
-        //
+        return view('designations.edit',compact('designation'));
     }
 
     /**
@@ -70,17 +61,7 @@ class DesignationController extends Controller
      */
     public function update(UpdateDesignationRequest $request, Designation $designation)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Designation  $designation
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Designation $designation)
-    {
-        //
+        $designation->update($request->validated());
+        return back()->with('success','designation updated');
     }
 }

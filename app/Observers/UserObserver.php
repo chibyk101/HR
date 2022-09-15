@@ -2,7 +2,10 @@
 
 namespace App\Observers;
 
+use App\Models\EmployeeDocument;
+use App\Models\Payslip;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class UserObserver
 {
@@ -45,7 +48,7 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        //
+        
     }
 
     /**
@@ -67,7 +70,19 @@ class UserObserver
      */
     public function forceDeleted(User $user)
     {
-        //
+      
+    }
+
+    public function deleting(User $user)
+    {
+      if($user->photo !== 'photos/default.png' && Storage::exists($user->photo)){
+        Storage::delete($user->photo);
+      }
+
+      $user->employeeDocuments()->get()->each(function(EmployeeDocument $employeeDocument){
+        $employeeDocument->delete();
+      });
+      
     }
     
 }

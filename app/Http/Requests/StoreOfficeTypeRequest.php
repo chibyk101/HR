@@ -13,7 +13,7 @@ class StoreOfficeTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,8 @@ class StoreOfficeTypeRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+      return [
+        'name' => 'required|string|max:255|unique:office_types',
+      ];
     }
 }

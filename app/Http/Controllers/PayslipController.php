@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Exports\PayslipExport;
+use App\Exports\SampleExport;
 use App\Http\Middleware\EnsurePaymentStreamIsNotProcessed;
 use App\Models\Payslip;
 use App\Http\Requests\StorePayslipRequest;
 use App\Http\Requests\UpdatePayslipRequest;
+use App\Imports\BasicSalaryImport;
 use App\Models\Branch;
 use App\Models\Department;
 use App\Models\Designation;
@@ -15,7 +17,10 @@ use App\Models\PaymentStream;
 use App\Models\SalaryItem;
 use App\Models\User;
 use App\Services\PaymentService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PayslipController extends Controller
@@ -90,7 +95,9 @@ class PayslipController extends Controller
    */
   public function edit(Payslip $payslip)
   {
-    $payslip->load(['user'=>['salaryItems','deductions' => fn($q) => $q->withoutGlobalScope('is_active_deduction'),'overtimes']],'paymentStream');
+    $payslip->load(['user'=> function($query){
+      $query->with(['deductions' => fn($q) => $q->withoutGlobalScope('is_active_deduction'),'salaryItems','overtimes']);
+    },'paymentStream']);
     return view('payslips.edit',compact('payslip'));
   }
 
@@ -110,7 +117,9 @@ class PayslipController extends Controller
   {
     $payslips = $paymentStream->payslips()->getQuery()->whereHas('user',function($query){
       $query->where('basic_salary','>',0);
-    })->with(['user' => ['deductions', 'overtimes', 'salaryItems']])->where([
+    })->with(['user'=> function($query){
+      $query->with(['deductions','salaryItems','overtimes']);
+    },'paymentStream'])->where([
       'paying_id' => $request->post('paying_id'),
       'paying_by' => $request->post('paying_by'),
       'paid_at' => null,
@@ -136,7 +145,9 @@ class PayslipController extends Controller
 
         $export[] = $data;
         //set payslip as paid
-        $slip->update(['paid_at',now()]);
+        $slip->paid_at = now();
+        $slip->save();
+        // $slip->update(['paid_at',now()]);
       }
       //set headings in export
       array_unshift($export, array_keys($export[0]));
@@ -160,5 +171,35 @@ class PayslipController extends Controller
     $user->setAttribute('basic_salary',$request->post('basic_salary'));
     $user->save();
     return back()->with('success','Salary updated');
+  }
+
+  public function importBasicSalary(Request $request)
+  {
+    $validator = validator($request->all(), [
+      'excel_sheet' => ['required', 'file', 'mimes:csv,xlsx,txt']
+    ]);
+
+    if ($validator->fails()) {
+      return back()->with('error', $validator->errors()->first());
+    }
+
+    try {
+      Excel::import(new BasicSalaryImport, $request->file('excel_sheet'));
+    } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+      return back()->with('error', $e->errors()[0][0]);
+    } catch (\Throwable $th) {
+      return back()->with('error', "Something went wrong, make sure you followed the template: {$th->getMessage()}");
+    }
+
+    return Redirect::back()->with('success', 'Salary items imported successfully');
+  }
+
+  public function importBasicSalarySample ()
+  {
+    return Excel::download(new SampleExport((new Collection([[
+      'Staff ID', 'Employee', 'Amount'
+    ], User::query()
+      ->select(DB::raw("staff_id,CONCAT(users.first_name,'  ',users.last_name) as employee"))
+      ->where('is_admin', 0)->get(['staff_id', 'employee'])]))->toArray()), 'salary_Import_sample_data.xlsx');
   }
 }

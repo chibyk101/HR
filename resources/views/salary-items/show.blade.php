@@ -21,6 +21,7 @@
     </form>
   </x-bladewind.modal>
 
+
   <div x-data="Model">
     <div x-show="!loading" class="flex justify-between mb-5">
       <nav aria-label="Page navigation example">
@@ -65,7 +66,7 @@
                 @csrf
                 @method('PUT')
                 <input type="number" name="amount" id="amount" x-bind:value="user.pivot.amount">
-                <button type="submit" class="inline-block px-4 py-1.5 ml-5 bg-blue-600 text-white font-medium leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"><span class="mdi mdi-content-save"></span></button>
+                <button class="inline-block px-4 py-1.5 ml-5 bg-blue-600 text-white font-medium leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"><span class="mdi mdi-content-save"></span></button>
               </form>
             </td>
             <td>

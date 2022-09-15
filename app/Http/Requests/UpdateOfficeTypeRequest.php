@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateOfficeTypeRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateOfficeTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,7 @@ class UpdateOfficeTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+          'name' => ['required', 'string', 'max:255', Rule::unique('office_types')->ignoreModel($this->route('officeType')) ],
         ];
     }
 }

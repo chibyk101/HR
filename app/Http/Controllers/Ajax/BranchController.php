@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Http\Requests\StoreBranchRequest;
 use App\Http\Requests\UpdateBranchRequest;
+use Illuminate\Http\Request;
 
 class BranchController extends Controller
 {
@@ -14,9 +15,15 @@ class BranchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+      return [
+        'branches' => Branch::with('department')->when(request('q'),function($query) use($request) {
+          $query->where('name', 'like', "%{$request->query('q')}%")->orWhereHas('department',function($query) use($request) {
+            $query->where('departments.name', 'like', "%{$request->query('q')}%");
+          });
+        })->latest()->paginate()
+      ];
     }
 
     /**
@@ -27,31 +34,9 @@ class BranchController extends Controller
      */
     public function store(StoreBranchRequest $request)
     {
-        //
+        Branch::create($request->validated());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Branch  $branch
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Branch $branch)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateBranchRequest  $request
-     * @param  \App\Models\Branch  $branch
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateBranchRequest $request, Branch $branch)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -61,6 +46,23 @@ class BranchController extends Controller
      */
     public function destroy(Branch $branch)
     {
-        //
+        $branch->delete();
+    }
+
+    public function search(Request $request)
+    {
+      return Branch::where('name', 'like', "%{$request->query('q')}%")
+        ->orWhereHas('department', function ($query) use ($request) {
+          $query->where('departments.name', 'like', "%{$request->query('q')}%");
+        })
+        ->limit(10)
+        ->get()
+        ->map(
+          fn ($item) =>
+          [
+            'id' => $item->id,
+            'text' => $item->name
+          ]
+        );
     }
 }

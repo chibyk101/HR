@@ -17,9 +17,9 @@ class UserDatabaseSeeder extends Seeder
     public function run()
     {
         $user = new User([
-          'first_name' => 'super',
-          'last_name' => 'admin',
-          'email' => 'admin@admin.com',
+          'first_name' => 'Super',
+          'last_name' => 'Admin',
+          'email' => 'admin@efghr.com',
           'password' => 'password',
           'is_admin' => true,
         ]);

@@ -15,7 +15,7 @@ class BranchController extends Controller
      */
     public function index()
     {
-        //
+        return view('branches.index');
     }
 
     /**
@@ -25,7 +25,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        //
+        return view('branches.create');
     }
 
     /**
@@ -36,19 +36,11 @@ class BranchController extends Controller
      */
     public function store(StoreBranchRequest $request)
     {
-        //
+      $branch = new Branch($request->validated());
+      $branch->save();
+      return  back()->with('success','branch created');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Branch  $branch
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Branch $branch)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -58,7 +50,9 @@ class BranchController extends Controller
      */
     public function edit(Branch $branch)
     {
-        //
+        $branch->load('department');
+
+        return view('branches.edit',compact('branch'));
     }
 
     /**
@@ -70,17 +64,7 @@ class BranchController extends Controller
      */
     public function update(UpdateBranchRequest $request, Branch $branch)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Branch  $branch
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Branch $branch)
-    {
-        //
+      $branch->update($request->validated());
+      return  back()->with('success','branch updated');
     }
 }

@@ -25,6 +25,7 @@ class SalaryItemUser extends Pivot
     static function booted()
     {
       static::saved(function(self $salaryItemUser){
+        info('added and should update');
         (new PaymentService)->regeneratePayslip($salaryItemUser->user);
       });
       static::deleted(function(self $salaryItemUser){

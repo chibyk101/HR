@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Designation;
 use App\Http\Requests\StoreDesignationRequest;
 use App\Http\Requests\UpdateDesignationRequest;
+use Illuminate\Http\Request;
 
 class DesignationController extends Controller
 {
@@ -14,9 +15,13 @@ class DesignationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request)
     {
-        //
+      return [
+        'designations' => Designation::when(request('q'),function($query) use($request) {
+          $query->where('name', 'like', "%{$request->query('q')}%");
+        })->latest()->paginate()
+      ];
     }
 
     /**
@@ -27,30 +32,7 @@ class DesignationController extends Controller
      */
     public function store(StoreDesignationRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Designation  $designation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Designation $designation)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateDesignationRequest  $request
-     * @param  \App\Models\Designation  $designation
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateDesignationRequest $request, Designation $designation)
-    {
-        //
+        Designation::Create($request->validated());
     }
 
     /**
@@ -61,6 +43,20 @@ class DesignationController extends Controller
      */
     public function destroy(Designation $designation)
     {
-        //
+        $designation->delete();
+    }
+
+    public function search(Request $request)
+    {
+      return Designation::where('name', 'like', "%{$request->query('q')}%")
+        ->limit(10)
+        ->get()
+        ->map(
+          fn ($item) =>
+          [
+            'id' => $item->id,
+            'text' => $item->name
+          ]
+        );
     }
 }

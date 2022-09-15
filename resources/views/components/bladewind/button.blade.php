@@ -77,6 +77,6 @@
 <{{$tag}} 
     {{ $attributes->merge(['class' => "bw-button cursor-pointer $size $type $name $primary_color $is_disabled"]) }}
     @if ($disabled == 'true') disabled="true" @endif
-    type="{{$button_type}}">
-    <span class="{{$button_text_color}}">{{ $slot }}</span> @if ($has_spinner == 'true') <x-bladewind::spinner css="{{$spinner_css}}"></x-bladewind::spinner> @endif
+    @if($tag == 'button') type="{{$button_type}}"@endif>
+    <span class="{{$button_text_color}}">{{ $slot }}</span> @if ($has_spinner == 'true') <x-bladewind::spinner class="{{$spinner_css}}"></x-bladewind::spinner> @endif
 </{{$tag}}>

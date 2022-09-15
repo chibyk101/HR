@@ -17,9 +17,7 @@
       @method('PUT')
 
       <h1 class="my-2 text-2xl font-light text-blue-900/80">{{ $paymentStream->name }}</h1>
-      <p class="mt-3 mb-6 text-red-500/80 text-sm">
-        NB: updating stream settings will clear all payslips in stream, this is to make sure new settings reflect on all payslips
-      </p>
+      
       <div class="grid gap-2 grid-cols-1 md:grid-cols-2">
 
         <div class="flex flex-col">

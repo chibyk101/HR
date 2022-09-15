@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-slot name="header">
-    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div class="form-group gap-4 md:flex- md:items-center md:justify-between">
       <h2 class="text-xl font-semibold leading-tight">
         {{ __('Users') }}
       </h2>
@@ -18,7 +18,7 @@
       </div>
       <label for="users">Select file</label>
       <input type="file" name="excel_sheet" id="users">
-      <x-bladewind::button name="btn-save" has_spinner="true" type="primary" can_submit="true" class="mt-3">
+      <x-bladewind::button name="btn-save" has_spform-group="true" type="primary" can_submit="true" class="mt-3">
         Upload
       </x-bladewind::button>
     </form>
@@ -42,60 +42,79 @@
           @enderror
         </div>
       </div>
-      <div class="grid gap-2 grid-cols-1 md:grid-cols-2">
-        <div class="flex flex-col">
+      <div class="grid gap-2 grid-cols-2">
+        <div class="form-group">
           <x-bladewind::input name="first_name" required="true" label="First Name" value="{{ old('first_name') }}" />
           @error('first_name')
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
+        </div>
+        <div class="form-group">
           <x-bladewind::input name="last_name" required="true" label="Last Name" value="{{ old('last_name') }}" />
           @error('last_name')
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
+        </div>
+      </div>
+      <div class="grid gap-2 grid-cols-2">
+        <div class="form-group">
           <x-bladewind::input name="middle_name" label="Other Names" value="{{ old('middle_name') }}" />
           @error('middle_name')
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
-
-          @error('photo')
-          <span class="text-red-600 my-1">{{ $message }}</span>
-          @enderror
         </div>
 
-        <div class="flex flex-col">
+        <div class="form-group">
           <x-bladewind::input name="email" required="true" label="Email" value="{{ old('email') }}" />
           @error('email')
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
+        </div>
+      </div>
+
+      <div class="grid gap-2 grid-cols-2">
+        <div class="form-group">
           <x-bladewind::input name="phone" label="Mobile" numeric="true" value="{{ old('phone') }}" />
           @error('phone')
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
         </div>
-        <div>
+        <div class="form-group">
           <x-bladewind.radio-button label="Male" name="gender" value="male" />
           <x-bladewind.radio-button label="female" name="gender" value="female" />
           @error('gender')
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
         </div>
-        <div class="flex flex-col">
+      </div>
+
+      <div class="grid gap-2 grid-cols-2">
+        <div class="form-group flex flex-col">
           <label for="dob">Date of birth</label>
           <input type="date" name="dob" id="dob" placeholder="Date of birth" value="{{ old('dob') }}" />
           @error('dob')
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
+        </div>
+        <div class="form-group">
           <x-bladewind::input name="lga" label="Local Government Area" value="{{ old('lga') }}" />
           @error('lga')
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
+        </div>
+      </div>
+      <div class="grid gap-2 grid-cols-2">
+        <div class="form-group">
           <x-bladewind::input name="password" label="Initial Password" type="password" required="true" value="{{ old('password') }}" />
           @error('password')
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
         </div>
+      </div>
 
-        <div class="flex flex-col">
+
+      <div class="grid gap-2 grid-cols-2">
+        <div class="form-group">
           <x-bladewind::input name="state_of_origin" label="State of origin" value="{{ old('state_of_origin') }}" />
           @error('state_of_origin')
           <span class="text-red-600 my-1">{{ $message }}</span>
@@ -106,7 +125,7 @@
           @enderror
         </div>
 
-        <div class="flex flex-col">
+        <div class="form-group">
           @php
           $marital_status = [
           [ 'label' => 'Single', 'value' => 'single' ],
@@ -122,7 +141,9 @@
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
         </div>
-        <div class="flex flex-col">
+      </div>
+      <div class="grid gap-2 grid-cols-2">
+        <div class="form-group">
           <h4 class="my-2">Next Of Kin</h4>
           <x-bladewind::input name="next_of_kin" label="Next of kin name" value="{{ old('next_of_kin') }}" />
           @error('next_of_kin')
@@ -137,7 +158,7 @@
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
         </div>
-        <div class="flex flex-col">
+        <div class="form-group">
           <h4 class="my-2">Guarantor one</h4>
           <x-bladewind::input name="guarantor_1" label="Guarantor 1 name" value="{{ old('guarantor_1') }}" />
           @error('guarantor_1')
@@ -152,7 +173,9 @@
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
         </div>
-        <div class="flex flex-col">
+      </div>
+      <div class="grid gap-2 grid-cols-2">
+        <div class="form-group">
           <h4 class="my-2">Guarantor two</h4>
           <x-bladewind::input name="guarantor_2" label="Guarantor 2 name" value="{{ old('guarantor_2') }}" />
           @error('guarantor_2')
@@ -167,7 +190,7 @@
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
         </div>
-        <div class="flex flex-col">
+        <div class="form-group">
           <h4 class="my-2">Guarantor three</h4>
           <x-bladewind::input name="guarantor_3" label="Guarantor 3 name" value="{{ old('guarantor_3') }}" />
           @error('guarantor_3')
@@ -187,8 +210,8 @@
       <p class="mt-3 mb-6 text-blue-900/80 text-sm">
         Company Information
       </p>
-      <div class="grid gap-2 grid-cols-1 md:grid-cols-2">
-        <div class="flex flex-col">
+      <div class="grid gap-2 grid-cols-2">
+        <div class="form-group">
           @php
           $levels = [
           [ 'label' => 'Level 1', 'value' => 1 ],
@@ -198,20 +221,26 @@
           ];
           @endphp
           <x-bladewind.dropdown name="level" placeholder="Employee Level" data="{{ json_encode($levels) }}" />
+        </div>
+        <div class="form-group flex flex-col">
           <label for="doj">Company date of joining</label>
           <input type="date" name="company_doj" placeholder="Date of joining" value="{{ old('company_doj') }}" />
           @error('company_doj')
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
         </div>
-        <div class="flex flex-col">
+      </div>
+      <div class="grid gap-2 grid-cols-2">
+        <div class="form-group">
           <select name="subsidiary_id" class="px-4 py-2 my-1 bw-dropdown bg-white cursor-pointer text-left w-full text-gray-400 flex justify-between dark:text-white dark:border-slate-700 dark:bg-slate-600 dark:text-gray-300" x-on:change="setDepartments">
             <option value="">SELECT SUBSIDIARY</option>
             <template x-for="sub in subsidiaries">
               <option x-bind:value="sub.id" x-text="sub.name"></option>
             </template>
           </select>
-          <select multiple x-ref="select" data-placeholder="Select a departments" name="departments[]" id="departments" class="px-4 py-2 my-1 bw-dropdown bg-white cursor-pointer text-left w-full text-gray-400 flex justify-between dark:text-white dark:border-slate-700 dark:bg-slate-600 dark:text-gray-300" x-on:change="setBranches">
+        </div>
+        <div class="form-group my-5">
+          <select multiple x-ref="select" data-placeholder="Select a departments" name="departments[]" id="departments" x-on:change="setBranches" style="width:610px;">
             <option value="">SELECT DEPARTMENTS</option>
             <template x-for="dept in departments">
               <option x-bind:value="dept.id" x-text="dept.name"></option>
@@ -220,6 +249,10 @@
           @error('departments')
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
+        </div>
+      </div>
+      <div class="grid gap-2 grid-cols-2">
+        <div class="form-group">
           <select name="branch_id" class="px-4 py-2 my-1 bw-dropdown bg-white cursor-pointer text-left w-full text-gray-400 flex justify-between dark:text-white dark:border-slate-700 dark:bg-slate-600 dark:text-gray-300">
             <option value="">SELECT BRANCH</option>
             <template x-for="branch in branches">
@@ -229,12 +262,18 @@
           @error('branch_id')
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
+        </div>
+        <div class="form-group">
           @if($designations->count())
           <x-bladewind.dropdown onselect="getDepartments" name="designation_id" placeholder="Designation" data="{{ $designations->toJson() }}" label_key="name" value_key="id" />
           @error('designation_id')
           <span class="text-red-600 my-1">{{ $message }}</span>
           @enderror
           @endif
+        </div>
+      </div>
+      <div class="grid gap-2 grid-cols-2">
+        <div class="form-group">
           @if($officeTypes->count())
           <select name="officeType_id" class="px-4 py-2 my-1 bw-dropdown bg-white cursor-pointer text-left w-full text-gray-400 flex justify-between dark:text-white dark:border-slate-700 dark:bg-slate-600 dark:text-gray-300">
             <option value="">SELECT OFFICE TYPE</option>
@@ -253,7 +292,7 @@
 
       <div class="text-center">
 
-        <x-bladewind::button name="btn-save" has_spinner="true" type="primary" can_submit="true" class="mt-3">
+        <x-bladewind::button name="btn-save" has_spform-group="true" type="primary" can_submit="true" class="mt-3">
           SUBMIT
         </x-bladewind::button>
 

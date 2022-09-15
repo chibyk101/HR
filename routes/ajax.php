@@ -18,6 +18,10 @@ Route::as('ajax.')->prefix('ajax')->middleware('ajax')->group(function(){
 
   Route::get('search-users',[\App\Http\Controllers\Ajax\UserController::class,'search'])->name('users.search');
   Route::get('search-subsidiaries',[\App\Http\Controllers\Ajax\SubsidiaryController::class,'search'])->name('subsidiaries.search');
+  Route::get('search-departments',[\App\Http\Controllers\Ajax\DepartmentController::class,'search'])->name('departments.search');
+  Route::get('search-designation',[\App\Http\Controllers\Ajax\DesignationController::class,'search'])->name('designation.search');
+  Route::get('search-branches',[\App\Http\Controllers\Ajax\BranchController::class,'search'])->name('branches.search');
+  Route::get('search-officeTypes',[\App\Http\Controllers\Ajax\OfficeTypeController::class,'search'])->name('officeTypes.search');
   Route::get('search-salaryItems',[\App\Http\Controllers\Ajax\SalaryItemController::class,'search'])->name('salaryItems.search');
 
 });

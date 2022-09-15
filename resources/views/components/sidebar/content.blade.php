@@ -8,14 +8,14 @@
 
 
   <!-- users -->
-  <x-sidebar.dropdown title="Staff" :active="Str::startsWith(request()->route()->uri(), ['users','documents'])">
+  <x-sidebar.dropdown title="Employees" :active="Str::startsWith(request()->route()->uri(), ['users','documents'])">
     <x-slot name="icon">
       <x-heroicon-o-user class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
     </x-slot>
 
-    <x-sidebar.sublink title="Staff list" href="{{ route('users.index') }}" :active="request()->routeIs('users.index')" />
-    <x-sidebar.sublink title="Add Staff" href="{{ route('users.create') }}" :active="request()->routeIs('users.create')" />
-    <x-sidebar.sublink title="Documents" href="{{ route('documents.index') }}" :active="request()->routeIs('documents.index')" />
+    <x-sidebar.sublink title="Employees" href="{{ route('users.index') }}" :active="request()->routeIs('users.index')" />
+    <x-sidebar.sublink title="Add Employee" href="{{ route('users.create') }}" :active="request()->routeIs('users.create')" />
+    <x-sidebar.sublink title="Employee Documents" href="{{ route('documents.index') }}" :active="request()->routeIs('documents.index')" />
   </x-sidebar.dropdown>
   <!-- end users -->
 
@@ -54,6 +54,28 @@
   
       <x-sidebar.sublink title="All branches" href="{{ route('branches.index') }}" :active="request()->routeIs('branches.index')" />
       <x-sidebar.sublink title="Add branches" href="{{ route('branches.create') }}" :active="request()->routeIs('branches.create')" />
+      <!-- <x-sidebar.sublink title="Text with icon" href="{{ route('buttons.text-icon') }}"
+              :active="request()->routeIs('buttons.text-icon')" /> -->
+    </x-sidebar.dropdown>
+    <!-- designations -->
+    <x-sidebar.dropdown title="Designations" :active="Str::startsWith(request()->route()->uri(), 'designations')">
+      <x-slot name="icon">
+        <span class="mdi-facebook-workplace mdi font-extrabold text-2xl"></span>
+      </x-slot>
+  
+      <x-sidebar.sublink title="All designations" href="{{ route('designations.index') }}" :active="request()->routeIs('designations.index')" />
+      <x-sidebar.sublink title="Add designations" href="{{ route('designations.create') }}" :active="request()->routeIs('designations.create')" />
+      <!-- <x-sidebar.sublink title="Text with icon" href="{{ route('buttons.text-icon') }}"
+              :active="request()->routeIs('buttons.text-icon')" /> -->
+    </x-sidebar.dropdown>
+    <!-- office types -->
+    <x-sidebar.dropdown title="Office Types" :active="Str::startsWith(request()->route()->uri(), 'officeTypes')">
+      <x-slot name="icon">
+        <span class="mdi-office-building mdi font-extrabold text-2xl"></span>
+      </x-slot>
+  
+      <x-sidebar.sublink title="All officeTypes" href="{{ route('officeTypes.index') }}" :active="request()->routeIs('officeTypes.index')" />
+      <x-sidebar.sublink title="Add officeTypes" href="{{ route('officeTypes.create') }}" :active="request()->routeIs('officeTypes.create')" />
       <!-- <x-sidebar.sublink title="Text with icon" href="{{ route('buttons.text-icon') }}"
               :active="request()->routeIs('buttons.text-icon')" /> -->
     </x-sidebar.dropdown>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Ajax;
 use App\Http\Controllers\Controller;
 use App\Models\OfficeType;
 use App\Http\Requests\StoreOfficeTypeRequest;
-use App\Http\Requests\UpdateOfficeTypeRequest;
+use Illuminate\Http\Request;
 
 class OfficeTypeController extends Controller
 {
@@ -14,9 +14,13 @@ class OfficeTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+      return [
+        'officeTypes' => OfficeType::when(request('q'),function($query) use($request) {
+          $query->where('name', 'like', "%{$request->query('q')}%");
+        })->latest()->paginate()
+      ];
     }
 
     /**
@@ -27,32 +31,8 @@ class OfficeTypeController extends Controller
      */
     public function store(StoreOfficeTypeRequest $request)
     {
-        //
+        OfficeType::create($request->validated());
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\OfficeType  $officeType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(OfficeType $officeType)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateOfficeTypeRequest  $request
-     * @param  \App\Models\OfficeType  $officeType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateOfficeTypeRequest $request, OfficeType $officeType)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -61,6 +41,20 @@ class OfficeTypeController extends Controller
      */
     public function destroy(OfficeType $officeType)
     {
-        //
+        $officeType->delete();
+    }
+
+    public function search(Request $request)
+    {
+      return OfficeType::where('name', 'like', "%{$request->query('q')}%")
+        ->limit(10)
+        ->get()
+        ->map(
+          fn ($item) =>
+          [
+            'id' => $item->id,
+            'text' => $item->name
+          ]
+        );
     }
 }

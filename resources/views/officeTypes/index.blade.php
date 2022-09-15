@@ -2,7 +2,7 @@
   <x-slot name="header">
     <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <h2 class="text-xl font-semibold leading-tight">
-        Subsidiaries
+        Office type
       </h2>
       <div class="flex justify-center">
         <div>
@@ -66,7 +66,7 @@
                   bg-transparent
                   text-gray-700
                   hover:bg-gray-100
-                " href="#" onclick="showModal('create-modal')">Create subsidiary</a>
+                " href="#" onclick="showModal('create-modal')">Create office type</a>
               </li>
             </ul>
           </div>
@@ -75,8 +75,8 @@
     </div>
   </x-slot>
   <div x-data="Model">
-    <x-bladewind.modal size="big" title="Create subsidiary" name="create-modal" show_action_buttons="false">
-      <form @submit.prevent="handleCreate" action="{{ route('ajax.subsidiaries.store') }}" method="post" id="subsidiary-create-form">
+    <x-bladewind.modal size="big" title="Create office type" name="create-modal" show_action_buttons="false">
+      <form @submit.prevent="handleCreate" action="{{ route('ajax.officeTypes.store') }}" method="post" id="officeType-create-form">
         @csrf
         <div class="block p-6 rounded-lg shadow-lg bg-white max-w-md">
           <div x-show="formErrorMessage" class="bg-red-100 rounded-lg py-5 px-6 mb-3 text-base text-red-700 inline-flex items-center w-full" role="alert">
@@ -100,7 +100,7 @@
                 transition
                 ease-in-out
                 m-0
-                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="exampleInput7" placeholder="subsidiary title">
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="exampleInput7" placeholder="officeType title">
             </div>
             <button x-bind:disabled="processing"  class="
               w-full
@@ -126,7 +126,7 @@
         </div>
       </form>
     </x-bladewind.modal>
-    <div x-show="!loading && subsidiaries.length && paginator.hasPages" class="flex justify-between mb-5">
+    <div x-show="!loading && officeTypes.length && paginator.hasPages" class="flex justify-between mb-5">
       <nav aria-label="Page navigation example">
         <ul class="flex list-style-none">
           <template x-for="link in paginator.links">
@@ -138,7 +138,7 @@
           </template>
         </ul>
       </nav>
-      <div x-show="!loading && subsidiaries.length && paginator.hasPages"> showing
+      <div x-show="!loading && officeTypes.length && paginator.hasPages"> showing
         <b x-text="paginator.from"></b> -
         <b x-text="paginator.to"></b>
         of
@@ -164,20 +164,20 @@
           <th>Actions</th>
         </x-slot>
 
-        <template x-for="subsidiary in subsidiaries">
+        <template x-for="officeType in officeTypes">
           <tr>
-            <td x-text="subsidiary.name"></td>
+            <td x-text="officeType.name"></td>
           </td>
           <td>
               <div class="flex">
-                <form @submit.prevent="handleDelete($event,subsidiary.id)" class="mx-1">
+                <form @submit.prevent="handleDelete($event,officeType.id)" class="mx-1">
                   @method('DELETE')
                   @csrf
                   <x-bladewind.button x-bind:disabled="processing" color="red" size="tiny" can_submit="true">
                     <x-heroicon-o-trash class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
                   </x-bladewind.button>
                 </form>
-                <x-bladewind.button color="blue" size="tiny" @click="openEdit(subsidiary)">
+                <x-bladewind.button color="blue" size="tiny" @click="openEdit(officeType)">
                   <i class="mdi mdi-pencil text-xl"></i>
                 </x-bladewind.button>
               </div>
@@ -185,7 +185,7 @@
             </td>
           </tr>
         </template>
-        <template x-if="!subsidiaries.length">
+        <template x-if="!officeTypes.length">
           <tr>
             <td colspan="4">
               <h4 class="text-center">no records found</h4>
@@ -194,7 +194,7 @@
         </template>
       </x-bladewind.table>
     </template>
-    <div x-show="!loading && subsidiaries.length && paginator.hasPages" class="flex justify-center">
+    <div x-show="!loading && officeTypes.length && paginator.hasPages" class="flex justify-center">
       <nav aria-label="Page navigation example">
         <ul class="flex list-style-none">
           <template x-for="link in paginator.links">
@@ -211,7 +211,7 @@
   @section('script')
   <script>
     let Model = () => ({
-      subsidiaries: [],
+      officeTypes: [],
       paginator: {
         next: null,
         prev: null,
@@ -230,7 +230,7 @@
         if (confirm('Are you sure you want to proceed? This action can not be undone'))
           $.ajax({
             method: "post",
-            url: "{{ url('ajax/subsidiaries') }}/" + id,
+            url: "{{ url('ajax/officeTypes') }}/" + id,
             data: $($evt.target).serialize(),
             success: function(response, status, xhr) {
               model.fetchData()
@@ -249,7 +249,7 @@
           this.fetchData(url)
         }
       },
-      fetchData: function(url = "{{ route('ajax.subsidiaries.index') }}", query = null) {
+      fetchData: function(url = "{{ route('ajax.officeTypes.index') }}", query = null) {
 
         if (query) {
           query = {
@@ -262,15 +262,15 @@
           url: url,
           data: query,
           success: function(response) {
-            model.paginator.next = response.subsidiaries.next_page_url
-            model.paginator.prev = response.subsidiaries.prev_page_url
-            model.paginator.links = response.subsidiaries.links
-            model.paginator.from = response.subsidiaries.from
-            model.paginator.to = response.subsidiaries.to
-            model.paginator.total = response.subsidiaries.total
-            model.subsidiaries = response.subsidiaries.data
+            model.paginator.next = response.officeTypes.next_page_url
+            model.paginator.prev = response.officeTypes.prev_page_url
+            model.paginator.links = response.officeTypes.links
+            model.paginator.from = response.officeTypes.from
+            model.paginator.to = response.officeTypes.to
+            model.paginator.total = response.officeTypes.total
+            model.officeTypes = response.officeTypes.data
             model.loading = false
-            model.paginator.hasPages = response.subsidiaries.links.length > 3
+            model.paginator.hasPages = response.officeTypes.links.length > 3
             model.processing = false
           },
           error: function(xhr, status, message) {
@@ -311,11 +311,11 @@
         })
       },
       openEdit(item) {
-        let url = '{{ route("subsidiaries.edit", ":slug") }}';
+        let url = '{{ route("officeTypes.edit", ":slug") }}';
         window.location.href = url.replace(':slug', item.id)
       },
       searchData(event) {
-        this.fetchData("{{ route('ajax.subsidiaries.index') }}", $(event.target).val())
+        this.fetchData("{{ route('ajax.officeTypes.index') }}", $(event.target).val())
       }
     })
   </script>

@@ -28,7 +28,7 @@
               flex
               items-center
               whitespace-nowrap
-              " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              "  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
               Actions
               <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" class="w-2 ml-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                 <path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path>
@@ -155,17 +155,17 @@
             <td x-text="user.designation ?user.designation.name : ''"></td>
             <td>
               <div class="flex">
-                <button @click="openEdit(user)" type="button" class="inline-block px-2.5 py-1 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                <button @click="openEdit(user)"  class="inline-block px-2.5 py-1 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                   <i class="mdi mdi-pencil text-xl w-6 h-6"></i>
                 </button>
                 <span class="mx-1"></span>
-                <button @click="openView(user)" type="button" class="inline-block px-2.5 py-1 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out">
+                <button @click="openView(user)"  class="inline-block px-2.5 py-1 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out">
                   <i class="mdi mdi-eye text-xl w-6 h-6"></i>
                 </button>
                 <form @submit.prevent="handleDelete($event,user.id)" class="mx-1">
                   @method('DELETE')
                   @csrf
-                  <button type="submit" class="inline-block px-2.5 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
+                  <button  class="inline-block px-2.5 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
                     <x-heroicon-o-trash class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
                   </button>
 

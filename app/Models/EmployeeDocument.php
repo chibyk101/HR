@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeDocument extends Model
 {
@@ -23,5 +24,14 @@ class EmployeeDocument extends Model
     public function user()
     {
       return $this->belongsTo(User::class);
+    }
+
+    static function booted()
+    {
+      static::deleting(function(Self $employeeDocument){
+        if (Storage::exists($employeeDocument->document_file)) {
+          Storage::delete($employeeDocument->document_file);
+        }
+      });
     }
 }

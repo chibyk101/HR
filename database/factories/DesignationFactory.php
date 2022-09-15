@@ -17,7 +17,7 @@ class DesignationFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->jobTitle
+            'name' => $this->faker->jobTitle
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Overtime;
 use App\Models\User;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
@@ -29,7 +30,7 @@ class OvertimeImport implements ToModel,WithValidation,WithHeadingRow
     {
       return [
         'overtime_title' => 'required|string',
-        'staff_id' => 'required|exists:users',
+        'staff_id' =>['required', Rule::exists('users')->withoutTrashed() ],
         'rate' => 'required|numeric',
         'hours' => 'required|numeric',
         'number_of_days' => 'required|numeric',

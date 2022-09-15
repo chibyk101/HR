@@ -4,10 +4,25 @@
       <h2 class="text-xl font-semibold leading-tight">
         {{ __('Salary Items') }}
       </h2>
-      <x-bladewind.button tag="a" href="{{route('salaryItems.create')}}">Add Item</x-bladewind.button>
+      <div class="flex">
+        <x-bladewind.button color="orange" onclick="showModal('import-modal-2')">Import Basic salaries</x-bladewind.button>
+        <x-bladewind.button tag="a" href="{{route('salaryItems.create')}}">Add Item</x-bladewind.button>
+      </div>
     </div>
   </x-slot>
-
+  <x-bladewind.modal size="big" title="Import Basic salaries" name="import-modal-2" show_action_buttons="false">
+    <form action="{{ route('payslips.basicSalary.import') }}" method="post" id="user-import-form" enctype="multipart/form-data">
+      @csrf
+      <div class="mb-5">
+        <a href="{{ route('payslips.basicSalary.import.sample') }}">download sample</a>
+      </div>
+      <label for="payslips">Select file</label>
+      <input type="file" name="excel_sheet" id="payslips">
+      <x-bladewind::button name="btn-save" has_spinner="true" type="primary" can_submit="true" class="mt-3">
+        Upload
+      </x-bladewind::button>
+    </form>
+  </x-bladewind.modal>
   <x-bladewind.table>
     <x-slot name="header">
       <th>Name</th>

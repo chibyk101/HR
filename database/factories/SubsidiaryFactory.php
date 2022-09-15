@@ -17,7 +17,7 @@ class SubsidiaryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->company . ' ' . fake()->companySuffix
+            'name' => $this->faker->company . ' ' . $this->faker->companySuffix
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\SalaryItem;
 use App\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
@@ -42,7 +43,7 @@ class SalaryItemImport implements ToCollection, WithHeadingRow, WithValidation
   public function rules(): array
   {
     return [
-      'staff_id' => ['required|exists:users'],
+      'staff_id' => ['required', Rule::exists('users')->withoutTrashed() ],
       'amount' => ['required','numeric']
     ];
   }

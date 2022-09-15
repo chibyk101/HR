@@ -4,7 +4,7 @@
       <h2 class="text-xl font-semibold leading-tight">
         {{ __('Edit payslip') }}
       </h2>
-
+      <x-bladewind.button tag="a" href="{{route('paymentStreams.payslips.index',$payslip->paymentStream)}}"> back to payslips </x-bladewind.button>
     </div>
   </x-slot>
   <x-bladewind::notification />
@@ -18,7 +18,7 @@
         <div class="overflow-hidden">
           <div class="flex justify-between mb-3">
             <h5 class="font-medium leading-tight text-xl mt-0 mb-2 text-gray-600">Salary items</h5>
-            <button onclick="showModal('add-salary-item')" type="button" class="mb-2 inline-block px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">add salary item</button>
+            <button onclick="showModal('add-salary-item')"  class="mb-2 inline-block px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">add salary item</button>
           </div>
           <table class="min-w-full text-center">
             <thead class="border-b bg-gray-800">
@@ -46,7 +46,7 @@
                     <input type="number" value="{{ old('basic_salary',$user->basic_salary) }}" name="basic_salary">
                   </td>
                   <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    <button type="submit" class="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">update</button>
+                    <button  class="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">update</button>
                   </td>
                 </tr>
               </form>
@@ -64,8 +64,8 @@
                     <input type="number" name="amount" value="{{ old('amount',$item->pivot->amount) }}">
                   </td>
                   <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    <button type="submit" class="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">update</button>
-                    <button onclick="if(confirm('are you sure?'))document.getElementById(`detach-form-{{ $item->id }}`).submit();" type="button" class="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">remove</button>
+                    <button  class="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">update</button>
+                    <button onclick="if(confirm('are you sure?'))document.getElementById(`detach-form-{{ $item->id }}`).submit();"  class="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">remove</button>
 
                   </td>
                 </tr>
@@ -89,7 +89,7 @@
         <div class="overflow-hidden">
           <div class="flex justify-between mb-3">
             <h5 class="font-medium leading-tight text-xl mt-0 mb-2 text-gray-600">Deductions</h5>
-            <button onclick="showModal('add-deduction-item')" type="button" class="mb-2 inline-block px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">add deduction item</button>
+            <button onclick="showModal('add-deduction-item')"  class="mb-2 inline-block px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">add deduction item</button>
           </div>
           <table class="min-w-full text-center">
             <thead class="border-b bg-gray-800">
@@ -128,8 +128,8 @@
                     </div>
                   </td>
                   <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    <button type="submit" class="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">update</button>
-                    <button onclick="if(confirm('are you sure?'))document.getElementById(`delete-deduction-{{ $deduction->id }}`).submit();" type="button" class="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">remove</button>
+                    <button  class="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">update</button>
+                    <button onclick="if(confirm('are you sure?'))document.getElementById(`delete-deduction-{{ $deduction->id }}`).submit();"  class="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">remove</button>
 
                   </td>
                 </tr>
@@ -152,7 +152,7 @@
         <div class="overflow-hidden">
           <div class="flex justify-between mb-3">
             <h5 class="font-medium leading-tight text-xl mt-0 mb-2 text-gray-600">Overtimes</h5>
-            <button onclick="showModal('add-overtime-item')" type="button" class="mb-2 inline-block px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">add overtime item</button>
+            <button onclick="showModal('add-overtime-item')"  class="mb-2 inline-block px-6 py-2 border-2 border-green-600 text-green-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">add overtime item</button>
           </div>
           <table class="min-w-full text-center">
             <thead class="border-b bg-gray-800">
@@ -195,8 +195,8 @@
                     <input type="number" name="number_of_days" value="{{ old('number_of_days',$overtime->number_of_days) }}">
                   </td>
                   <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    <button type="submit" class="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">update</button>
-                    <button onclick="if(confirm('are you sure?'))document.getElementById(`delete-overtime-{{ $overtime->id }}`).submit();" type="button" class="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">remove</button>
+                    <button  class="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">update</button>
+                    <button onclick="if(confirm('are you sure?'))document.getElementById(`delete-overtime-{{ $overtime->id }}`).submit();"  class="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">remove</button>
 
                   </td>
                 </tr>
@@ -272,7 +272,7 @@
       </div>
       <input type="hidden" name="user_id" value="{{$user->id}}">
       <div class="form-group">
-        <x-bladewind.checkbox label="Apply Deduction?" name="is_active" checked="{{ $deduction->is_active?'true':'false' }}" value="1" />
+        <x-bladewind.checkbox label="Apply Deduction?" name="is_active" checked="false" value="1" />
       </div>
 
       <x-bladewind::button name="btn-save" has_spinner="true" type="primary" can_submit="true" class="mt-3">

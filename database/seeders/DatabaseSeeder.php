@@ -20,18 +20,22 @@ class DatabaseSeeder extends Seeder
    */
   public function run()
   {
-    for ($i=0; $i <= 5; $i++) { 
-      \App\Models\User::factory(10)
-        ->for(Designation::factory()->create())
-        ->for(Branch::factory()
-          ->for(Department::factory()
-            ->for(Subsidiary::factory()->create())->create()))
-        ->create();
+    if(app()->environment('local')){
+      for ($i=0; $i <= 5; $i++) { 
+        \App\Models\User::factory(10)
+          ->for(Designation::factory()->create())
+          ->for(Branch::factory()
+            ->for(Department::factory()
+              ->for(Subsidiary::factory()->create())->create()))
+          ->create();
+      }
+      foreach(User::all() as $user){
+        $user->departments()->attach(rand(1,6));
+      }
+    }else{
+      $this->call(SubsidiarySeeder::class);
     }
-    foreach(User::all() as $user){
-      $user->departments()->attach(rand(1,6));
-    }
+
     $this->call(UserDatabaseSeeder::class);
-    // $this->call(SubsidiarySeeder::class);
   }
 }

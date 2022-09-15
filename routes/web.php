@@ -13,15 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-  return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-  return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
+  Route::get('/',function(){
+    return view('dashboard');
+  })->name('dashboard');
   //users
   Route::get('sample-data-users', [\App\Http\Controllers\UserController::class, 'importSample'])->name('users.import.sample');
   Route::post('import-data-users', [\App\Http\Controllers\UserController::class, 'import'])->name('users.import');
@@ -34,6 +29,8 @@ Route::middleware('auth')->group(function () {
   Route::resource('branches', \App\Http\Controllers\BranchController::class)->except('destroy','show');
   //designation
   Route::resource('designations', \App\Http\Controllers\DesignationController::class)->except('destroy','show');
+  //office type
+  Route::resource('officeTypes', \App\Http\Controllers\OfficeTypeController::class)->except('destroy','show');
   //payment streams
   Route::put('mark-as-processed/{paymentStream}',[\App\Http\Controllers\PaymentStreamController::class,'markAsProcessed'])->name('paymentStreams.processed');
   Route::resource('paymentStreams', \App\Http\Controllers\PaymentStreamController::class);
@@ -65,6 +62,10 @@ Route::middleware('auth')->group(function () {
   Route::post('attach-user-salary-item/{user}',[\App\Http\Controllers\SalaryItemController::class,'attachUser'])->name('salaryItems.users.attach');
   Route::delete('detach-user-salary-item/{user}',[\App\Http\Controllers\SalaryItemController::class,'detachUser'])->name('salaryItems.users.detach');
   Route::put('update-user-salary-item/{user}',[\App\Http\Controllers\SalaryItemController::class,'updateUser'])->name('salaryItems.users.update');
+
+  //basic salary import
+  Route::post('basic-salary-import',[\App\Http\Controllers\PayslipController::class,'importBasicSalary'])->name('payslips.basicSalary.import');
+  Route::get('basic-salary-import-sample',[\App\Http\Controllers\PayslipController::class,'importBasicSalarySample'])->name('payslips.basicSalary.import.sample');
 });
 
 // useless routes

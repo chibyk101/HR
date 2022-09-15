@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Deduction;
 use App\Models\User;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
@@ -27,7 +28,7 @@ class DeductionImport implements ToModel, WithHeadingRow, WithValidation
   {
     return [
       'deduction_title' => 'required|string',
-      'staff_id' => 'required|exists:users',
+      'staff_id' => ['required', Rule::exists('users')->withoutTrashed() ],
       'amount' => 'required|numeric'
     ];
   }
