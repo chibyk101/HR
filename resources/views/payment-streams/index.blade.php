@@ -50,7 +50,7 @@
     </tr>
     @empty
     <tr>
-      <td colspan="5"></td>
+      <td colspan="7"></td>
     </tr>
     @endforelse
   </x-bladewind.table>
