@@ -34,8 +34,8 @@
         </div>
         <div class="flex flex-col">
           <x-bladewind.checkbox label="Process Deductions?" name="process_deductions" value="1" />
-          <x-bladewind.checkbox label="Process Deductions?" name="include_basic_salary" value="1" />
-          <x-bladewind.checkbox label="Process Deductions?" name="include_overtime" value="1" />
+          <x-bladewind.checkbox label="Pay basic salaries?" name="include_basic_salary" value="1" />
+          <x-bladewind.checkbox label="Pay overtimes?" name="include_overtime" value="1" />
         </div>
 
         <div class="text-center">
