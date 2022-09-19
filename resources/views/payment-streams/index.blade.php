@@ -12,9 +12,9 @@
     <x-slot name="header">
       <th>Name</th>
       <th>Month</th>
-      <th>Process deductions</th>
-      <th>Pay overtimes</th>
-      <th>Pay basic salaries</th>
+      <th>Process deductions ?</th>
+      <th>Pay overtimes ?</th>
+      <th>Pay basic salaries ?</th>
       <th>Processed at</th>
       <th>Actions</th>
     </x-slot>
