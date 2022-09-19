@@ -87,14 +87,16 @@
           </div>
 
         </template>
-        <x-bladewind::button name="btn-save" has_spinner="true" type="primary" color="orange" can_submit="true" class="mt-3">
-          process {{$paymentStream->name}} payments
-        </x-bladewind::button>
+        <template x-if="payslips.length">
+          <x-bladewind::button name="btn-save" has_spinner="true" type="primary" color="orange" can_submit="true" class="mt-3">
+            proceed to payment
+          </x-bladewind::button>
+        </template>
       </form>
 
       <div class="d-flex flex-col">
         <x-bladewind.button color="red" onclick="if(confirm(`Are you sure you want to close current stream`)) document.getElementById(`close-form`).submit() ;">
-          Mark as processed
+          Close stream
         </x-bladewind.button>
       </div>
 

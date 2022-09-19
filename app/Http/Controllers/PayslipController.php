@@ -191,7 +191,7 @@ class PayslipController extends Controller
       return back()->with('error', "Something went wrong, make sure you followed the template: {$th->getMessage()}");
     }
 
-    return Redirect::back()->with('success', 'Salary items imported successfully');
+    return Redirect::back()->with('success', 'Basic Salaries imported successfully');
   }
 
   public function importBasicSalarySample ()
